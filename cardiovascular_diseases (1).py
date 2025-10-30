@@ -31,6 +31,14 @@ display(df.head(40))
 
 print(df.isnull().sum())
 
+# Análise Exploratória
+
+correlation_matrix = df.corr()
+plt.figure(figsize=(12, 8))
+sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm')
+plt.title('Matriz de Correlação')
+plt.show()
+
 #Limpeza de outliers
 df = df[(df['ap_hi'] > 70) & (df['ap_hi'] < 250)]
 df = df[(df['ap_lo'] > 40) & (df['ap_lo'] < 140)]
@@ -96,18 +104,6 @@ print("\nGrid Search Concluído!")
 print(f"Melhores Hiperparâmetros: {grid_search.best_params_}")
 print(f"Melhor Score AUC (Treinamento CV): {grid_search.best_score_:.4f}")
 
-# Análise Exploratória
-
-correlation_matrix = df.corr()
-plt.figure(figsize=(12, 8))
-sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm')
-plt.title('Matriz de Correlação')
-plt.show()
-
-sns.boxplot(x='cardio', y='age', data=df)
-plt.title('Idade vs. Doença Cardiovascular')
-plt.show()
-
 # Avaliação e Resultados Finais
 
 y_pred = best_model.predict(X_test)
@@ -143,4 +139,37 @@ plt.xlabel('Taxa de Falso Positivo (False Positive Rate)')
 plt.ylabel('Taxa de Verdadeiro Positivo (True Positive Rate)')
 plt.title('Curva ROC - Regressão Logística Otimizada')
 plt.legend(loc="lower right")
+plt.show()
+
+# NOVO LIMIAR
+NEW_THRESHOLD = 0.40
+
+y_pred_proba = best_model.predict_proba(X_test)[:, 1]
+
+y_pred_new = (y_pred_proba >= NEW_THRESHOLD).astype(int)
+
+# nova Matriz de Confusão
+new_cm = confusion_matrix(y_test, y_pred_new)
+
+new_fn = new_cm[1, 0]
+new_fp = new_cm[0, 1]
+new_recall = new_cm[1, 1] / (new_cm[1, 1] + new_cm[1, 0])
+
+print("-" * 60)
+print(f"RESULTADOS APÓS AJUSTE DO LIMIAR PARA {NEW_THRESHOLD:.2f}")
+print(f"Novos Falsos Negativos (FN): {new_fn}")
+print(f"Novos Falsos Positivos (FP): {new_fp}")
+print(f"Novo Recall (Sensibilidade): {new_recall:.4f}")
+print("-" * 60)
+
+
+plt.figure(figsize=(8, 6))
+sns.heatmap(new_cm, annot=True, fmt='d', cmap='Blues', cbar=False,
+            linewidths=.5, linecolor='black',
+            yticklabels=['Real Negativo (0)', 'Real Positivo (1)'],
+            xticklabels=['Previsto Negativo (0)', 'Previsto Positivo (1)'])
+
+plt.title(f'Matriz de Confusão com Limiar Ajustado ({NEW_THRESHOLD:.2f})', fontsize=16)
+plt.ylabel('Valor Real', fontsize=12)
+plt.xlabel('Valor Previsto', fontsize=12)
 plt.show()
