@@ -30,7 +30,7 @@ O *dataset* contém 12 variáveis preditoras e a variável alvo (`cardio`), cate
 | Variável | Descrição | Unidade | Níveis Categóricos |
 | :--- | :--- | :--- | :--- |
 | **ap\_hi** | Pressão Arterial Sistólica. | mmHg | **Numérica:** Alvo de limpeza de *outliers* extremos. |
-| **ap\_lo** | Pressão Arterial Diastólica. | mmHg | **Numérica:** Alvo de limpeza de *outliers* e inconsistências ($\text{ap\_lo} \le \text{ap\_hi}$). |
+| **ap\_lo** | Pressão Arterial Diastólica. | mmHg | **Numérica:** Alvo de limpeza de *outliers* e inconsistências (ap_hi e ap_lo). |
 | **cholesterol** | Nível de Colesterol. | Nível | 1: Normal, 2: Acima do Normal, 3: Bem Acima do Normal. |
 | **gluc** | Nível de Glicose. | Nível | 1: Normal, 2: Acima do Normal, 3: Bem Acima do Normal. |
 
