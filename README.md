@@ -4,8 +4,6 @@
 
 Este projeto de Trabalho de Conclusão de Curso (TCC) tem como objetivo principal **aplicar e comparar** a performance de diferentes algoritmos de *Machine Learning* na classificação do risco de Doenças Cardiovasculares (DCV).
 
-O foco é identificar o modelo preditivo mais **robusto e clinicamente seguro** para o diagnóstico precoce, priorizando a métrica **Recall** e a minimização dos **Falsos Negativos (FN)**, o erro mais crítico no contexto da saúde cardiovascular.
-
 ---
 
 ## Dataset e Pré-processamento
