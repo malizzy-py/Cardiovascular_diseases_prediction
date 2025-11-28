@@ -50,7 +50,6 @@ O *dataset* contém 12 variáveis preditoras e a variável alvo (`cardio`), cate
 | **cardio** | Presença de Doença Cardiovascular. | 0 ou 1 | **0: Saudável**; **1: Doente**. |
 
 ---
----
 
 ### Algoritmos Comparados
 
